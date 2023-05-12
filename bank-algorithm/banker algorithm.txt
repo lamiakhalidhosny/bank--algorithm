@@ -2,6 +2,97 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+public class BankerAlgorithm {
+    private int numProcesses;
+    private int numResources;
+    private int[][] allocation;
+    private int[][] max;
+    private int[] available;
+    private int[] resources;
+
+    public BankerAlgorithm(int[][] allocation, int[][] max, int[] available) {
+        this.numProcesses = allocation.length;
+        this.numResources = available.length;
+        this.allocation = allocation;
+        this.max = max;
+        this.available = available;
+        this.resources = new int[numResources];
+        calculateResources();
+    }
+
+    public boolean isSafeState() {
+        int[] work = Arrays.copyOf(available, numResources);
+        boolean[] finish = new boolean[numProcesses];
+        int[] safeSequence = new int[numProcesses];
+        int count = 0;
+
+        while (count < numProcesses) {
+            boolean found = false;
+            for (int i = 0; i < numProcesses; i++) {
+                if (!finish[i] && isProcessSafe(i, work)) {
+                    for (int j = 0; j < numResources; j++) {
+                        work[j] += allocation[i][j];
+                    }
+                    safeSequence[count++] = i;
+                    finish[i] = true;
+                    found = true;
+                }
+            }
+            if (!found) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isProcessSafe(int process, int[] work) {
+        for (int i = 0; i < numResources; i++) {
+            if (max[process][i] - allocation[process][i] > work[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void calculateResources() {
+        for (int i = 0; i < numResources; i++) {
+            int sum = 0;
+            for (int j = 0; j < numProcesses; j++) {
+                sum += allocation[j][i];
+            }
+            resources[i] = available[i] - sum;
+        }
+    }
+
+    public static void main(String[] args) {
+        int[][] allocation = {
+            {0, 1, 0},
+            {2, 0, 0},
+            {3, 0, 2},
+            {2, 1, 1},
+            {0, 0, 2}
+        };
+        int[][] max = {
+            {7, 5, 3},
+            {3, 2, 2},
+            {9, 0, 2},
+            {2, 2, 2},
+            {4, 3, 3}
+        };
+        int[] available = {3, 3, 2};
+
+        BankerAlgorithm bankerAlgorithm = new BankerAlgorithm(allocation, max, available);
+        boolean isSafe = bankerAlgorithm.isSafeState();
+
+        if (isSafe) {
+            System.out.println("System is in a safe state.");
+        } else {
+            System.out.println("System is not in a safe state.");
+        }
+    }
+}
+
 
 public class BankerAlgorithmGUI extends JFrame {
     private JPanel mainPanel;
