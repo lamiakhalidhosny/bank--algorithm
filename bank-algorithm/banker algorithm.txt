@@ -111,16 +111,16 @@ public class BankerAlgorithmGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(0, 2, 10, 10));
+        mainPanel.setLayout(new GridLayout(0, 2, 4, 4));
         add(mainPanel);
 
         // Create input fields for number of processes and resources
-        JLabel numProcessesLabel = new JLabel("Number of Processes:");
+        JLabel numProcessesLabel = new JLabel("Num Processes:");
         mainPanel.add(numProcessesLabel);
         JTextField numProcessesField = new JTextField();
         mainPanel.add(numProcessesField);
 
-        JLabel numResourcesLabel = new JLabel("Number of Resources:");
+        JLabel numResourcesLabel = new JLabel("Num Resources:");
         mainPanel.add(numResourcesLabel);
         JTextField numResourcesField = new JTextField();
         mainPanel.add(numResourcesField);
