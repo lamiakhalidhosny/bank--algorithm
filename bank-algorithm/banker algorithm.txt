@@ -135,7 +135,7 @@ public class BankerAlgorithmGUI extends JFrame implements ActionListener {
                 createMaxFields();
                 createAvailableFields();
 
-                // Implement the Banker's algorithm calculation here
+               
 
                 // Update the safe sequence label with the result
                 safeSequenceLabel.setText("Safe sequence: P0 -> P1 -> P2");
