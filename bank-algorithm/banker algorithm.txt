@@ -1,0 +1,113 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class BankerAlgorithmGUI extends JFrame {
+    private JPanel mainPanel;
+    private JTextField[][] allocation;
+    private JTextField[][] max;
+    private JTextField[] available;
+    private JButton calculateButton;
+    private JLabel safeSequenceLabel;
+
+    private int numProcesses;
+    private int numResources;
+
+    public BankerAlgorithmGUI() {
+        setTitle("Banker's Algorithm");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new GridLayout(0, 2, 10, 10));
+        add(mainPanel);
+
+        // Create input fields for number of processes and resources
+        JLabel numProcessesLabel = new JLabel("Number of Processes:");
+        mainPanel.add(numProcessesLabel);
+        JTextField numProcessesField = new JTextField();
+        mainPanel.add(numProcessesField);
+
+        JLabel numResourcesLabel = new JLabel("Number of Resources:");
+        mainPanel.add(numResourcesLabel);
+        JTextField numResourcesField = new JTextField();
+        mainPanel.add(numResourcesField);
+
+        // Create the "Calculate" button
+        calculateButton = new JButton("Calculate");
+        calculateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                numProcesses = Integer.parseInt(numProcessesField.getText());
+                numResources = Integer.parseInt(numResourcesField.getText());
+
+                // Create the input fields for allocation, max, and available resources
+                createAllocationFields();
+                createMaxFields();
+                createAvailableFields();
+
+                // Implement the Banker's algorithm calculation here
+
+                // Update the safe sequence label with the result
+                safeSequenceLabel.setText("Safe sequence: P0 -> P1 -> P2");
+
+                revalidate();
+                repaint();
+            }
+        });
+        mainPanel.add(calculateButton);
+
+        // Create the safe sequence label
+        safeSequenceLabel = new JLabel();
+        mainPanel.add(safeSequenceLabel);
+
+        setVisible(true);
+    }
+
+    private void createAllocationFields() {
+        allocation = new JTextField[numProcesses][numResources];
+        JLabel allocationLabel = new JLabel("Allocation:");
+        mainPanel.add(allocationLabel);
+
+        for (int i = 0; i < numProcesses; i++) {
+            for (int j = 0; j < numResources; j++) {
+                allocation[i][j] = new JTextField();
+                mainPanel.add(allocation[i][j]);
+            }
+        }
+    }
+
+    private void  createMaxFields() {
+        max = new JTextField[numProcesses][numResources];
+        JLabel maxLabel = new JLabel("Max:");
+        mainPanel.add(maxLabel);
+
+        for (int i = 0; i < numProcesses; i++) {
+            for (int j = 0; j < numResources; j++) {
+                max[i][j] = new JTextField();
+                mainPanel.add(max[i][j]);
+            }
+        }
+    }
+
+    private void createAvailableFields() {
+        available= new JTextField[numResources];
+        JLabel availableLabel = new JLabel("Available:");
+        mainPanel.add(availableLabel);
+
+        for (int i = 0; i < numResources; i++) {
+            available[i] = new JTextField();
+            mainPanel.add(available[i]);
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new BankerAlgorithmGUI();
+            }
+        });
+    }
+}
