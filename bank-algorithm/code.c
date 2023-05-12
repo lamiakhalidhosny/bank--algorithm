@@ -2,7 +2,7 @@
 #include<stdio.h>  
 int main()  
 {  
-    // P0 , P1 , P2 , P3 , P4 are the Process names here  
+    // P0 , P1 , P2 , P3 , P4 are the Process names 
     int n , m , i , j , k;  
     n = 5; // Number of processes  
     m = 3; // Number of resources  
