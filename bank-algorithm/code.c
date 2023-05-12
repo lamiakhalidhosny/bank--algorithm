@@ -2,8 +2,8 @@
 #include<stdio.h>  
 int main()  
 {  
-    // P0 , P1 , P2 , P3 , P4 // Process names 
-    int p , m , i , j , k;  
+    // Process0 , Process1 , Process2 , Process3 , Process4 // Process names 
+    int p , j,i , k , m;  
     p = 5; // Num of processes  
     m = 3; // Num of resources  
     int alloc[ 5 ] [ 3 ] = { { 0 , 1 , 0 }, //p0
@@ -17,22 +17,22 @@ int main()
                     { 3 , 0 , 7 } , // P3  
                     { 4 , 0 , 6 } } ; // P4  
     int avail[3] = { 3 , 3 , 2 } ; 
-    int f[p] , answer[p] , index = 0 ;  
+    int s[p] , answer[p] , index = 0 ;  
     for (k = 0; k < p; k++) {  
-        f[k] = 0;  
+        s[k] = 0;  
     }  
-    int need[n][m];  
+    int requested[n][m];  
     for (i = 0; i < p; i++) {  
         for (j = 0; j < m; j++)  
-            need[i][j] = max[i][j] - alloc[i][j] ;  
+            requested[i][j] = max[i][j] - alloc[i][j] ;  
     }  
     int y = 0;  
     for (k = 0; k < 5; k++){  
         for (i = 0; i < p; i++){  
-            if (f[i] == 0){  
+            if (s[i] == 0){  
                 int flag = 0;  
                 for (j = 0; j < m; j++) {  
-                    if(need[i][j] > avail[j]){  
+                    if(requested[i][j] > avail[j]){  
                         flag = 1;  
                         break;  
                     }  
@@ -41,7 +41,7 @@ int main()
                     ans[index++] = i;  
                     for (y = 0; y < m; y++)  
                         avail[y] += alloc[i][y] ;  
-                    f[i] = 1;  
+                    s[i] = 1;  
                 }  
             }  
         }  
@@ -49,7 +49,7 @@ int main()
     int flag = 1;   
     for(int i=0;i<p;i++)  
     {  
-    if(f[i] == 0)  
+    if(s[i] == 0)  
     {  
         flag = 0;  
         printf("  system is not safe ");  
