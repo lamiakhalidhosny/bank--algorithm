@@ -94,7 +94,7 @@ public class BankerAlgorithm {
 }
 
 
-public class BankerAlgorithmGUI extends JFrame {
+public class BankerAlgorithmGUI extends JFrame implements ActionListener {
     private JPanel mainPanel;
     private JTextField[][] allocation;
     private JTextField[][] max;
@@ -102,19 +102,16 @@ public class BankerAlgorithmGUI extends JFrame {
     private JButton calculateButton;
     private JLabel safeSequenceLabel;
 
-    private int numProcesses;
-    private int numResources;
+    public int numProcesses;
+    public  int numResources;
 
     public BankerAlgorithmGUI() {
         setTitle("Banker's Algorithm");
-        setSize(400, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(0, 2, 4, 4));
         add(mainPanel);
 
-        // Create input fields for number of processes and resources
+        // Create input  for number of processes and resources
         JLabel numProcessesLabel = new JLabel("Num Processes:");
         mainPanel.add(numProcessesLabel);
         JTextField numProcessesField = new JTextField();
